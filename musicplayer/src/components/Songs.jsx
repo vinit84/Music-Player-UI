@@ -22,12 +22,24 @@ function Songs({
         const songsWithBgColor = data.data.map((song) => ({
           ...song,
           bgColor: "",
+          isImageLoaded: false
         }));
         setSongs((prevState) => ({
           ...prevState,
           songs: songsWithBgColor,
         }));
-        setLoading(false);
+
+        Promise.all(songsWithBgColor.map(song => {
+          return new Promise((resolve) => {
+            const img = new Image();
+            img.src = `https://cms.samespace.com/assets/${song.cover}`;
+            img.onload = () => resolve(true);
+            img.onerror = () => resolve(false);
+          });
+        })).then(() => {
+          setLoading(false); 
+        });
+
 
         songsWithBgColor.forEach((song) => {
           const audio = new Audio(song.url);

@@ -15,6 +15,7 @@ function Player() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState("forYou");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const searchRef = useRef(null);
   const dialogRef = useRef(null);
 
@@ -179,10 +180,16 @@ function Player() {
               </div>
               <div className="flex w-full flex-col gap-y-3">
                 <div className="flex md:w-[25rem] w-full select-none md:h-[25rem] h-[22rem] rounded-lg overflow-hidden flex-shrink-0">
+                  {!imageLoaded && (
+                    <div className="animate-pulse bg-gray-200 w-full h-full"></div>
+                  )}
                   <img
                     src={`https://cms.samespace.com/assets/${currentSong.cover}`}
                     alt="Cover"
-                    className="w-full h-full object-cover "
+                    className={`w-full h-full object-cover ${
+                      !imageLoaded ? "hidden" : ""
+                    }`}
+                    onLoad={() => setImageLoaded(true)}
                   />
                 </div>
                 <MusicControls
