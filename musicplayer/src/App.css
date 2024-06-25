@@ -1,0 +1,74 @@
+body {
+  font-family: "Inter", sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.music-controls {
+  position: relative;
+  width: 100%;
+}
+
+.volume-slider {
+  cursor: pointer;
+  background-color: #fff;
+  opacity: 0.7;
+  border-radius: 5px;
+}
+
+.volume-slider:hover {
+  opacity: 1;
+}
+
+.seeker {
+  -webkit-appearance: none;
+  outline: none;
+  transition: opacity 0.5s;
+}
+
+.seeker::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.seeker:hover::-webkit-slider-thumb {
+  background: #fff;
+}
+
+.seeker::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: transparent;
+  border: 0px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.seeker:hover::-moz-range-thumb {
+  background: #fff;
+}
+
+
