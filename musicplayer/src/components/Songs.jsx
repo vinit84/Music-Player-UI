@@ -22,24 +22,25 @@ function Songs({
         const songsWithBgColor = data.data.map((song) => ({
           ...song,
           bgColor: "",
-          isImageLoaded: false
+          isImageLoaded: false,
         }));
         setSongs((prevState) => ({
           ...prevState,
           songs: songsWithBgColor,
         }));
 
-        Promise.all(songsWithBgColor.map(song => {
-          return new Promise((resolve) => {
-            const img = new Image();
-            img.src = `https://cms.samespace.com/assets/${song.cover}`;
-            img.onload = () => resolve(true);
-            img.onerror = () => resolve(false);
-          });
-        })).then(() => {
-          setLoading(false); 
+        Promise.all(
+          songsWithBgColor.map((song) => {
+            return new Promise((resolve) => {
+              const img = new Image();
+              img.src = `https://cms.samespace.com/assets/${song.cover}`;
+              img.onload = () => resolve(true);
+              img.onerror = () => resolve(false);
+            });
+          })
+        ).then(() => {
+          setLoading(false);
         });
-
 
         songsWithBgColor.forEach((song) => {
           const audio = new Audio(song.url);
@@ -95,6 +96,12 @@ function Songs({
           if (onSongSelect) {
             onSongSelect();
           }
+          setTimeout(() => {
+            const audioElement = document.getElementById("audio-element");
+            if (audioElement) {
+              audioElement.play();
+            }
+          }, 0);
         })
         .catch((error) => console.error("Error fetching song details:", error));
     }

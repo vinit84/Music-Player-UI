@@ -8,6 +8,7 @@ import { songState } from "../state/songState";
 import search from "../assets/Frame.svg";
 import Songs from "./Songs";
 import MusicControls from "./MusicControls";
+import Searchbar from "./Searchbar";
 
 function Player() {
   const [backgroundColor, setBackgroundColor] = useState("");
@@ -29,6 +30,10 @@ function Player() {
     const nextSong = songs[nextIndex];
     setSongs((prevState) => ({ ...prevState, currentSong: nextSong }));
     setBackgroundColor(nextSong.accent);
+    setTimeout(() => {
+      const audioElement = document.getElementById("audio-element");
+      audioElement.play();
+    }, 0);
   };
 
   const setPreviousSong = () => {
@@ -37,6 +42,10 @@ function Player() {
     const prevSong = songs[prevIndex];
     setSongs((prevState) => ({ ...prevState, currentSong: prevSong }));
     setBackgroundColor(prevSong.accent);
+    setTimeout(() => {
+      const audioElement = document.getElementById("audio-element");
+      audioElement.play();
+    }, 0);
   };
 
   useEffect(() => {
@@ -91,6 +100,7 @@ function Player() {
             ></img>
           </div>
         </div>
+        {/* Desktop */}
         <div className="hidden md:flex flex-col mx-auto gap-y-5 w-[27rem]">
           <div className="px-5 flex flex-col gap-y-5">
             <div className="flex flex-row justify-between w-[16.5rem]">
@@ -140,31 +150,13 @@ function Player() {
             />
           </div>
         </div>
-        <div className="relative md:hidden mt-6 w-full">
-          <input
-            type="text"
-            placeholder="Search Song, Artist"
-            className="w-full text-white select-none focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 border-[1px] border-transparent font-Inter px-4 py-2 bg-[#ffffff14] rounded-lg"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-            <img src={search} className="w-8 h-8 opacity-40" alt="icon"></img>
-          </div>
-          {searchQuery && (
-            <div
-              ref={searchRef}
-              className="absolute z-10 w-full bg-neutral-900 drop-shadow-lg border-[1px] border-[#1f2734] shadow-2 hover:shadow-lg mt-2 rounded-lg max-h-64 overflow-auto"
-            >
-              <Songs
-                setBackgroundColor={setBackgroundColor}
-                searchQuery={searchQuery}
-                activeTab={activeTab}
-                clearSearch={() => setSearchQuery("")}
-              />
-            </div>
-          )}
-        </div>
+        {/* Desktop */}
+
+        <Searchbar
+          setActiveTab={setActiveTab}
+          setBackgroundColor={setBackgroundColor}
+          activeTab={activeTab}
+        />
       </div>
       <div className="flex justify-center md:pt-[4rem] pt-10">
         <div className="md:w-[25rem] w-full h-fit flex-col justify-start items-start gap-8 inline-flex">

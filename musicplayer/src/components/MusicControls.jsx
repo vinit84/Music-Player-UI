@@ -15,6 +15,8 @@ function MusicControls({
   const volumeControlRef = useRef(null);
 
   useEffect(() => {
+    if (!songUrl) return;
+
     setProgress(0);
     setIsPlaying(false);
 
@@ -31,8 +33,13 @@ function MusicControls({
     };
 
     audio.addEventListener("timeupdate", updateProgress);
+    audio
+      .play()
+      .catch((error) => console.error("Error playing the audio:", error));
+
     return () => {
       audio.removeEventListener("timeupdate", updateProgress);
+      audio.pause();
     };
   }, [songUrl]);
 
@@ -59,6 +66,7 @@ function MusicControls({
     const audio = audioRef.current;
     const handleSongEnd = () => {
       setNextSong();
+      setIsPlaying(true);
     };
 
     audio.addEventListener("ended", handleSongEnd);
@@ -67,14 +75,23 @@ function MusicControls({
     };
   }, [setNextSong]);
 
+  useEffect(() => {
+    const audio = audioRef.current;
+    audio.addEventListener("play", () => setIsPlaying(true));
+    audio.addEventListener("pause", () => setIsPlaying(false));
+
+    return () => {
+      audio.removeEventListener("play", () => setIsPlaying(true));
+      audio.removeEventListener("pause", () => setIsPlaying(false));
+    };
+  }, []);
+
   const togglePlayPause = () => {
     const audio = audioRef.current;
     if (audio.paused) {
       audio.play();
-      setIsPlaying(true);
     } else {
       audio.pause();
-      setIsPlaying(false);
     }
   };
 
@@ -97,7 +114,7 @@ function MusicControls({
 
   return (
     <div className="music-controls">
-      <audio ref={audioRef} src={songUrl} />
+      <audio ref={audioRef} src={songUrl} id="audio-element" />
 
       <div className="flex flex-col gap-y-6">
         <div className="w-full flex items-center mt-2">
@@ -225,7 +242,7 @@ function MusicControls({
                   step="0.01"
                   value={volume}
                   onChange={handleVolumeChange}
-                  className="md:w-24 w-16 block absolute volume-slider bottom-full  transform md:translate-y-[1rem] translate-y-14 md:translate-x-10 -translate-x-6"
+                  className="md:w-24 w-16 block absolute volume-slider bottom-full transform md:translate-y-[1rem] translate-y-14 md:translate-x-10 -translate-x-6"
                 />
               )}
             </div>
