@@ -6,7 +6,7 @@ Welcome to the Music Player UI project! This is a fully responsive and interacti
 
 ## Live Demo
 
-Check out the live demo of the project [here](https://musicplayerui4u.netlify.app/).
+Check out the live demo of the project [Music Player UI](https://musicplayerui4u.netlify.app/).
 
 ## Table of Contents
 
