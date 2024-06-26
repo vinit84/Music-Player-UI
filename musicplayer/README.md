@@ -1,8 +1,8 @@
-# Music Player UI
+# Music Player UI 🎵
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/5f80d2b1-13fe-4664-912f-597d614fa779/deploy-status)](https://app.netlify.com/sites/musicplayerui4u/deploys)
 
-Welcome to the Music Player UI project! This is a fully responsive and interactive music player built with React.js, Tailwind CSS, and Framer Motion for animations.
+Welcome to the Music Player UI project! This is a frontend developer assessment project assigned by Samespace. The task was to create a responsive music player UI. This is a fully responsive and interactive music player built with React.js, Tailwind CSS, and Framer Motion for animations.
 
 ## Live Demo
 
